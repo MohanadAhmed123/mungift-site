@@ -1,11 +1,29 @@
 import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useAuth } from '@/context/AuthContext'
+import Login from '@/pages/Login'
 
 function App() {
 
+  const { user, loading, signOut} = useAuth()
+
+  if (loading) return <div>Loading...</div>
+
+  if (!user) {
+    return <Login />
+  }
+  
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <h1 className="text-4xl font-bold">Muna Gift App</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<div>Home (tabs go here)
+          <button onClick={signOut}>Sign Out</button>
+        </div>} />
+      </Routes>
+    </BrowserRouter>
+    // <div className="min-h-screen flex items-center justify-center bg-black text-white">
+    //   <h1 className="text-4xl font-bold">Muna Gift App</h1>
+    // </div>
   )
 }
 
