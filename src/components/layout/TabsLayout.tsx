@@ -1,5 +1,5 @@
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom'
-import Vocabulary from '@/pages/Vocabulary'
+import VocabularyPage from '@/pages/Vocabulary/VocabularyPage'
 import Recipes from '@/pages/Recipes'
 import Texts from '@/pages/Texts'
 import Media from '@/pages/Media'
@@ -29,7 +29,7 @@ export default function TabsLayout() {
 
       {/* Tabs */}
       <nav className="flex gap-6 px-6 py-3 border-b">
-        <TabLink to="/">Vocabulary</TabLink>
+        <TabLink to="/vocabulary">Vocabulary</TabLink>
         <TabLink to="/recipes">Recipes</TabLink>
         <TabLink to="/texts">Texts</TabLink>
         <TabLink to="/media">Media</TabLink>
@@ -38,11 +38,12 @@ export default function TabsLayout() {
       {/* Page content */}
       <main className="flex-1 p-6">
         <Routes>
-          <Route path="/" element={<Vocabulary />} />
+          <Route path="/" element={<VocabularyPage />} /> {/*need to update this later to home page route*/}
+          <Route path="/vocabulary" element={<VocabularyPage />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/texts" element={<Texts />} />
           <Route path="/media" element={<Media />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" />} /> 
         </Routes>
       </main>
     </div>
