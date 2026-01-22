@@ -4,6 +4,7 @@ import Recipes from '@/pages/Recipes'
 import Texts from '@/pages/Texts'
 import Media from '@/pages/Media'
 import { useAuth } from '@/context/AuthContext'
+import NewWordPage from '@/pages/Vocabulary/newWordPage'
 
 export default function TabsLayout() {
   const { profile, signOut } = useAuth()
@@ -40,6 +41,7 @@ export default function TabsLayout() {
         <Routes>
           <Route path="/" element={<VocabularyPage />} /> {/*need to update this later to home page route*/}
           <Route path="/vocabulary" element={<VocabularyPage />} />
+          <Route path="/vocabulary/new" element={<NewWordPage />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/texts" element={<Texts />} />
           <Route path="/media" element={<Media />} />
