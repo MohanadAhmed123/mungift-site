@@ -34,7 +34,7 @@ export default function VocabularyPage() {
     <div className="relative min-h-screen">
       <div className="px-4 py-6 max-w-md mx-auto">
         <header className="mb-6">
-          <h1 className="text-2xl font-bold">Vocabulary</h1>
+          <h1 className="text-4xl font-bold">Vocabulary</h1>
           <p className="text-sm text-neutral-500 mt-1">
             Our shared inside-joke dictionary
           </p>

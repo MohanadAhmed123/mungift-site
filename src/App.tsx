@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from '@/pages/Login'
 import ProtectedRoute from '@/components/common/ProtectedRoute'
-import TabsLayout from '@/components/layout/TabsLayout'
+import AppLayout from '@/components/layout/AppLayout'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route path="/*"
             element={
               <ProtectedRoute>
-                <TabsLayout />
+                <AppLayout />
               </ProtectedRoute>
             }
           />
