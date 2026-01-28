@@ -6,6 +6,7 @@ import Media from '@/pages/Media'
 import { useAuth } from '@/context/AuthContext'
 import NewWordPage from '@/pages/Vocabulary/newWordPage'
 import { Button } from '@/components/ui/button'
+import { ModeToggle } from '@/components/theme/mode-toggle'
 
 export default function TabsLayout() {
   const { profile, signOut } = useAuth()
@@ -20,6 +21,7 @@ export default function TabsLayout() {
 
         <div className="flex items-center gap-4">
           <span>{profile?.display_name}</span>
+          <ModeToggle />
           <Button
             onClick={signOut}
             className="text-sm underline"
