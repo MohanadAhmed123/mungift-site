@@ -43,6 +43,7 @@ export default function VocabularyPage() {
         <div className="space-y-4 pb-24">
           {words.map((item) => (
             <VocabularyCard
+              key={item.id}
               word={item}
             />
           ))}

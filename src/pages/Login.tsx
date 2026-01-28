@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const [emailOrName, setEmailOrName] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -42,6 +44,7 @@ export default function Login() {
     }
 
     setLoading(false)
+    navigate("/", {replace: true})
   }
 
   return (
