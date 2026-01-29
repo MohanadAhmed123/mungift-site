@@ -39,7 +39,7 @@ export function TopBar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
+              <Button variant="ghost" className="flex items-center gap-2" size="icon">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src={profile?.avatar_url ?? ""} />
                   <AvatarFallback>
