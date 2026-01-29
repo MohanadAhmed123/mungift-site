@@ -14,15 +14,14 @@ export type VocabularyWord = {
   linked_words: string[] | null;
 };
 
-export type NewVocabularyWord = {
-  word: string;
-  definition: string;
-  example: string | null;
-  notes: string | null;
-  coined_by: string | null;
-  created_by: UUID | null;
-  linked_words: string[] | null;
-}
+export type VocabularyFormValues = {
+  word: string
+  definition: string
+  example: string
+  notes: string
+  linkedWords: string
+  coinedBy?: string
+};
 
 
 export type VocabularyTagMap = {
