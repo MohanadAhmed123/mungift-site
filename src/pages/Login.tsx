@@ -41,10 +41,11 @@ export default function Login() {
 
     if (authError) {
       setError(authError.message)
+    } else {
+      navigate("/", {replace: true})
     }
 
     setLoading(false)
-    navigate("/", {replace: true})
   }
 
   return (
