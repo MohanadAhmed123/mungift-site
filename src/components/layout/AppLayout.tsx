@@ -5,6 +5,7 @@ import Texts from '@/pages/Texts'
 import Media from '@/pages/Media'
 import NewWordPage from '@/pages/Vocabulary/newWordPage'
 import { TopBar } from '@/components/layout/TopBar'
+import EditWordPage from '@/pages/Vocabulary/EditWordPage'
 
 export default function AppLayout() {
 
@@ -18,6 +19,7 @@ export default function AppLayout() {
           <Route path="/" element={<Navigate to="/vocabulary" replace />} /> {/*need to update this later to home page route*/}
           <Route path="/vocabulary" element={<VocabularyPage />} />
           <Route path="/vocabulary/new" element={<NewWordPage />} />
+          <Route path="/vocabulary/edit/:id" element={<EditWordPage />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/texts" element={<Texts />} />
           <Route path="/media" element={<Media />} />

@@ -12,28 +12,34 @@ import {
 import { Button } from "@/components/ui/button"
 
 import { Pencil } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   word: VocabularyWord;
 }
 
 export function VocabularyCard({ word }: Props) {
+  const navigate = useNavigate();
+
   return (
     <Card className="gap-y-2">
       {/* Header */}
       <CardHeader>
-          <CardTitle className="font-bold text-primary text-3xl sm:text-4xl">
-            {word.word}
-          </CardTitle>
+        <CardTitle className="font-bold text-primary text-3xl sm:text-4xl">
+          {word.word}
+        </CardTitle>
         <CardAction>
           <Button
-              variant="ghost"
-              size="icon"
-              // onClick={() => onEdit(word)}
-              className="shrink-0"
-            >
-              <Pencil />
-            </Button>
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(`/vocabulary/edit/${word.id}`, {
+                            state: { word }, //passing in the current word values to the edit form page
+                          })
+            }
+            className="shrink-0"
+          >
+            <Pencil />
+          </Button>
         </CardAction>
       </CardHeader>
 
@@ -63,30 +69,30 @@ export function VocabularyCard({ word }: Props) {
           </p>
         )}
 
-        
+
       </CardContent>
 
       {/* Footer */}
       <CardFooter>
         <div className="flex flex-col items-start gap-1 text-xs text-muted-foreground">
-        
-        {/* Notes */}
-        {word.notes && (
-          <p>
-            Notes: {word.notes}
-          </p>
-        )}
 
-        {word.created_at && (
-          <span>Created on {new Date(word.created_at).toLocaleDateString()} <br /></span>
-        )}
+          {/* Notes */}
+          {word.notes && (
+            <p>
+              Notes: {word.notes}
+            </p>
+          )}
 
-        {word.updated_at && (
-          <span>Last Updated on {new Date(word.updated_at).toLocaleDateString()} at {new Date(word.updated_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-        )}
+          {word.created_at && (
+            <span>Created on {new Date(word.created_at).toLocaleDateString()} <br /></span>
+          )}
+
+          {word.updated_at && (
+            <span>Last Updated on {new Date(word.updated_at).toLocaleDateString()} at {new Date(word.updated_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
+          )}
         </div>
       </CardFooter>
     </Card>
-  
+
   );
 }
