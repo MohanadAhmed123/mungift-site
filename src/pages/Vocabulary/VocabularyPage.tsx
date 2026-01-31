@@ -5,6 +5,7 @@ import { VocabularyCard } from "./VocabularyCard"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/button"
 
 export default function VocabularyPage() {
   const [words, setWords] = useState<VocabularyWord[]>([])
@@ -37,6 +38,7 @@ export default function VocabularyPage() {
       .eq("id", word.id)
 
     if (error) {
+      console.error(error)
       toast.error('Error deleting word', {
         description: `${error.message}`,
       })
@@ -77,18 +79,20 @@ export default function VocabularyPage() {
       </div>
 
       {/* Floating Add Button */}
-      <button
+      <Button
         onClick={() => navigate("/vocabulary/new")}
+        size="icon"
+        variant="default"
         className="
           fixed bottom-6 right-6
-          h-14 w-14 rounded-full
+          rounded-full
           shadow-lg text-2xl
           flex items-center justify-center
         "
         aria-label="Add new word"
       >
         +
-      </button>
+      </Button>
     </div>
   )
 }

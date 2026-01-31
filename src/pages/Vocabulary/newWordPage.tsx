@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/context/AuthContext"
 import VocabularyForm from "@/pages/Vocabulary/VocabularyForm"
+import { toast } from "sonner"
 
 export default function NewWordPage() {
     const navigate = useNavigate()
@@ -42,9 +43,15 @@ export default function NewWordPage() {
             
             if (error) {
                 console.error(error)
+                toast.error('Error adding new word', {
+                    description: `${error.message}`,
+                })
                 return
             }
 
+            toast.success('Added Successfully', {
+                description: `"${values.word}" has been created.`,
+            })
             navigate("/vocabulary")
         }}
         />

@@ -3,6 +3,7 @@ import type { VocabularyWord, VocabularyFormValues } from "@/types";
 import VocabularyForm from "./VocabularyForm";
 import { supabase } from "@/lib/supabase"
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 export default function EditWordPage() {
     const { id } = useParams<{ id: string }>()
@@ -20,7 +21,7 @@ export default function EditWordPage() {
         linkedWords: currWord?.linked_words?.join(", "),
         coinedBy: currWord?.coined_by,
     } as VocabularyFormValues
-    
+
     return (
         <VocabularyForm
         title="Edit Word/Phrase"
@@ -49,9 +50,15 @@ export default function EditWordPage() {
 
             if (error) {
                 console.error(error)
+                toast.error('Error editing word', {
+                    description: `${error.message}`,
+                })
                 return
             }
 
+            toast.success('Edited Successfully', {
+                description: `"${values.word}" has been updated.`,
+            })
             navigate("/vocabulary")
         }}
         />
