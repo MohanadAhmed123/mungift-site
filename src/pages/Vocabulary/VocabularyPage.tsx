@@ -3,11 +3,14 @@ import { supabase } from "@/lib/supabase"
 import type { VocabularyWord } from "@/types/vocabulary"
 import { VocabularyCard } from "./VocabularyCard"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
+import { useAuth } from "@/context/AuthContext"
 
 export default function VocabularyPage() {
   const [words, setWords] = useState<VocabularyWord[]>([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchWords = async () => {
@@ -25,6 +28,28 @@ export default function VocabularyPage() {
 
     fetchWords()
   }, [])
+
+  async function handleDelete(word: VocabularyWord) {
+    if (!user) return
+    const { error } = await supabase
+      .from("vocabulary_words")
+      .delete()
+      .eq("id", word.id)
+
+    if (error) {
+      toast.error('Error deleting word', {
+        description: `${error.message}`,
+      })
+      return
+    }
+
+    // removing word from list to avoid re-fetch from db
+    setWords(prev => prev.filter(w => w.id !== word.id))
+
+    toast.success('Deleted Successfully', {
+      description: `"${word.word}" has been deleted.`,
+    })
+  }
 
   if (loading) {
     return <div className="p-4">Loading…</div>
@@ -45,6 +70,7 @@ export default function VocabularyPage() {
             <VocabularyCard
               key={item.id}
               word={item}
+              onDelete={handleDelete}
             />
           ))}
         </div>

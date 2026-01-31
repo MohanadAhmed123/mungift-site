@@ -23,33 +23,40 @@ export function TopBar() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-primary">
-      <div className="flex h-14 items-center px-4">
+      
+                              {/*'grid-cols-[1fr_4fr_1fr]' is for allotting more space to middle section relative to the left/right sections*/}
+      <div className="h-14 grid grid-cols-[1fr_4fr_1fr] gap-2 items-center px-4">
         {/* LEFT */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-start">
           <PopupNav />
         </div>
 
         {/* CENTER */}
-        <div className="flex-1 text-2xl text-center font-semibold">
-          Muna Gift App
+        <div className="flex justify-center">
+          <div className="flex-1 text-2xl text-center font-semibold">
+            Muna Gift App
+          </div>
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 pr-2 justify-end">
+
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2" size="icon">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={profile?.avatar_url ?? ""} />
-                  <AvatarFallback>
-                    {profile?.display_name?.[0] ?? "U"}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="hidden sm:inline text-sm">
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon">
+                  <Avatar className="">
+                    <AvatarImage src={profile?.avatar_url ?? ""} />
+                    <AvatarFallback>
+                      {profile?.display_name?.[0] ?? "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+                <p className="hidden sm:inline text-sm font-semibold max-w-30">
                   {profile?.display_name}
-                </span>
-              </Button>
+                </p>
+              </div>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">

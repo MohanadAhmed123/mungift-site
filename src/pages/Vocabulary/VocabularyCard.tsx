@@ -3,22 +3,34 @@ import {
   Card,
   CardAction,
   CardContent,
-  // CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 import { Button } from "@/components/ui/button"
 
-import { Pencil } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
   word: VocabularyWord;
+  onDelete: (word: VocabularyWord) => void;
 }
 
-export function VocabularyCard({ word }: Props) {
+export function VocabularyCard({ word, onDelete }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -28,18 +40,47 @@ export function VocabularyCard({ word }: Props) {
         <CardTitle className="font-bold text-primary text-3xl sm:text-4xl">
           {word.word}
         </CardTitle>
-        <CardAction>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(`/vocabulary/edit/${word.id}`, {
-                            state: { word }, //passing in the current word values to the edit form page
-                          })
-            }
-            className="shrink-0"
-          >
-            <Pencil />
-          </Button>
+        <CardAction className="flex justify-end">
+          <div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(`/vocabulary/edit/${word.id}`, {
+                              state: { word }, //passing in the current word values to the edit form page
+                            })
+              }
+            >
+              <Pencil />
+            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button size="icon" variant="ghost">
+                  <Trash className="text-destructive" />
+                </Button>
+              </AlertDialogTrigger>
+
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete word?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete “{word.word}”.
+                    This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    className="bg-destructive text-destructive-foreground"
+                    onClick={() => onDelete(word)}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+          
         </CardAction>
       </CardHeader>
 

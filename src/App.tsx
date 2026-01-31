@@ -4,6 +4,7 @@ import Login from '@/pages/Login'
 import ProtectedRoute from '@/components/common/ProtectedRoute'
 import AppLayout from '@/components/layout/AppLayout'
 import { ThemeProvider } from '@/components/theme/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
+
+      <Toaster richColors closeButton expand={true} />
     </ThemeProvider>
   )
 }
