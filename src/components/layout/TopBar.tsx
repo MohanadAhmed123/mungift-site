@@ -27,7 +27,7 @@ export function TopBar() {
                               {/*'grid-cols-[1fr_4fr_1fr]' is for allotting more space to middle section relative to the left/right sections*/}
       <div className="h-14 grid grid-cols-[1fr_4fr_1fr] gap-2 items-center px-4">
         {/* LEFT */}
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-center">
           <PopupNav />
         </div>
 

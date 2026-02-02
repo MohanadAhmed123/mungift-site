@@ -28,7 +28,7 @@ export function PopupNav() {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="start" className="w-44">
+      <DropdownMenuContent align="start" className="w-30">
         {NAV_ITEMS.map((item) => {
           const isActive = location.pathname.startsWith(item.path)
 
