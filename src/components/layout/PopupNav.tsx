@@ -24,7 +24,7 @@ export function PopupNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Menu className="h-5 w-5" />
+          <Menu className="h-5 w-5 size-4" />
         </Button>
       </DropdownMenuTrigger>
 
