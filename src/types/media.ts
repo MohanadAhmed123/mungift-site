@@ -1,7 +1,7 @@
 import type { UUID } from './auth';
 import type { Tag } from './tags';
 
-export type MediaType = 'image' | 'video';
+export type MediaType = 'image' | 'video' | 'audio';
 
 export type MediaItem = {
   id: UUID;
@@ -10,6 +10,7 @@ export type MediaItem = {
   caption: string | null;
   created_by: UUID | null;
   created_at: string;
+  updated_at: string;
 };
 
 export type MediaTagMap = {
@@ -22,3 +23,17 @@ export type MediaTagMap = {
 export type MediaItemWithTags = MediaItem & {
   tags: Tag[];
 };
+
+export type MediaFormValues = {
+  file: File | null
+  caption: string
+  tagIds?: string
+}
+
+export type CreateMediaInput = {
+  file_url: string
+  file_type: "image" | "video" | "audio"
+  caption: string
+  tagNames: string[]
+  created_by: string
+}
