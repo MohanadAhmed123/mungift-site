@@ -1,5 +1,4 @@
 import type { UUID } from './auth';
-import type { Tag } from './tags';
 
 export type MediaType = 'image' | 'video' | 'audio';
 
