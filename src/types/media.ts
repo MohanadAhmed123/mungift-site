@@ -25,3 +25,11 @@ export type MediaItemWithTags = MediaItem & {
     name: string;
   }[];
 };
+
+export type MediaFormValues = {
+  file: File | null
+  caption: string
+  existingFileUrl?: string | null // used for edit mode
+  existingFileType?: MediaType | null // used for edit mode
+};
+

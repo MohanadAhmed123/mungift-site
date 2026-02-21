@@ -31,17 +31,21 @@ export async function uploadMediaFile(
   userId: string
 ): Promise<string> {
   const fileExt = file.name.split(".").pop();
-  const fileName = `${userId}/${crypto.randomUUID()}.${fileExt}`;
+  const filePath = `${userId}/${crypto.randomUUID()}.${fileExt}`;
 
   const { error } = await supabase.storage
     .from("media")
-    .upload(fileName, file, {
+    .upload(filePath, file, {
       upsert: false,
     });
 
   if (error) throw error;
 
-  return fileName; // store this in DB
+  const { data } = supabase.storage
+    .from("media")
+    .getPublicUrl(filePath)
+
+  return data.publicUrl; // store this in DB
 }
 
 // delete media file from supabase storage (used for media item editing or deletion)
@@ -129,4 +133,12 @@ export async function deleteMediaItemWithFile(id: string, filePath: string) {
 
   // 2. delete storage file
   await deleteMediaFile(filePath);
+}
+
+// not checking for potential unaccepted media types as the input 
+// element in the media form only accepts "image/*,video/*,audio/*"
+export function getFileType(file: File): "image" | "video" | "audio" {
+  if (file.type.startsWith("image/")) return "image"
+  if (file.type.startsWith("audio/")) return "audio"
+  return "video" // if not image or audio then it must be video
 }

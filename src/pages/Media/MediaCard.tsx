@@ -99,7 +99,7 @@ export function MediaCard({ item, onDelete }: Props) {
             variant="ghost"
             size="icon"
             onClick={() => navigate(`/media/edit/${item.id}`, {
-                            state: { item }, //passing in the current word values to the edit form page
+                            state: { item }, //passing in the current media item values to the edit form page
                           })
             }
           >

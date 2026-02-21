@@ -6,6 +6,8 @@ import NewWordPage from '@/pages/Vocabulary/newWordPage'
 import { TopBar } from '@/components/layout/TopBar'
 import EditWordPage from '@/pages/Vocabulary/EditWordPage'
 import MediaItemsPage from '@/pages/Media/MediaItemsPage'
+import NewMediaPage from '@/pages/Media/NewMediaPage'
+import EditMediaPage from '@/pages/Media/EditMediaPage'
 
 export default function AppLayout() {
 
@@ -23,6 +25,8 @@ export default function AppLayout() {
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/texts" element={<Texts />} />
           <Route path="/media" element={<MediaItemsPage />} />
+          <Route path="/media/new" element={<NewMediaPage />} />
+          <Route path="/media/edit/:id" element={<EditMediaPage />} />
           <Route path="*" element={<Navigate to="/" />} /> 
         </Routes>
       </main>

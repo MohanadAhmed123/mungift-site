@@ -38,7 +38,7 @@ export default function MediaItemsPage() {
       } catch (error) {
         console.error(error)
         toast.error('Error deleting media item', {
-          description: `${error instanceof Error ? error.message : error}`,
+          description: `${error instanceof Error ? error.message : String(error)}`,
         })
         return
       }
