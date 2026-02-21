@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useAuth } from "@/context/AuthContext"
 import type { MediaFormValues } from "@/types"
+import { TagSelector } from "@/pages/Media/TagSelector.tsx"
 
 type Props = {
     title: string
@@ -159,6 +160,23 @@ export default function MediaForm({
                             {errors.caption && (
                                 <p className="text-sm text-destructive">{errors.caption}</p>
                             )}
+                        </div>
+
+                        <div className="space-y-1">
+                            <Field>
+                                <FieldLabel>Tags</FieldLabel>
+                                <TagSelector
+                                    context={{
+                                        scope:"media",
+                                        joinTable:"media_tag_map",
+                                        entityColumn:"media_id"
+                                    }}
+                                    selectedTags={values.tags!}
+                                    onChangeSelected={newTags =>
+                                        setValues(v => ({ ...v, tags: newTags }))
+                                    }
+                                />
+                            </Field>
                         </div>
                     </CardContent>
 

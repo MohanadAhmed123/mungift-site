@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Pencil, Trash, Maximize } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
-import type { MediaItemWithTags } from "@/types"
+import type { MediaItemWithTags, Tag } from "@/types"
 import { FullScreenLightbox } from "@/pages/Media/FullScreenLightbox"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 
@@ -78,9 +78,9 @@ export function MediaCard({ item, onDelete }: Props) {
           
           {item.tags.length > 0 ? (
             <div className="flex flex-wrap gap-2">
-              {item.tags.map((tag: any) => (
-                <Badge key={tag.id} variant="secondary">
-                  {tag.name}
+              {item.tags.map((tag: Tag) => (
+                <Badge key={tag.id} className="border-purple-200 bg-purple-50 text-purple-700 dark:border-0 dark:bg-purple-950 dark:text-purple-300">
+                    {tag.name}
                 </Badge>
               ))}
             </div>

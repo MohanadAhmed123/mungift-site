@@ -1,4 +1,4 @@
-import type { UUID } from './auth';
+import type { UUID, Tag } from '@/types';
 
 export type MediaType = 'image' | 'video' | 'audio';
 
@@ -20,10 +20,7 @@ export type MediaTagMap = {
 
 
 export type MediaItemWithTags = MediaItem & {
-  tags: {
-    id: string;
-    name: string;
-  }[];
+  tags: Tag[];
 };
 
 export type MediaFormValues = {
@@ -31,5 +28,6 @@ export type MediaFormValues = {
   caption: string
   existingFileUrl?: string | null // used for edit mode
   existingFileType?: MediaType | null // used for edit mode
+  tags?: Tag[]
 };
 
