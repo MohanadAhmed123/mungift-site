@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, ChevronsUpDown, Edit2 } from "lucide-react"
+import { Check, ChevronsUpDown, Pencil, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import {
@@ -87,6 +87,9 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
             })
             return
         }
+        toast.success('Added Successfully', {
+            description: `"${name}" has been created.`,
+        })
     }
 
     async function handleUpdateTag(tag: Tag, newName: string) {
@@ -109,6 +112,9 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
             })
             return
         }
+        toast.success('Updated Successfully', {
+            description: `Tag name has been updated to "${newName}".`,
+        })
     }
 
     async function handleDeleteTag(tag: Tag) {
@@ -124,6 +130,9 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
             })
             return
         }
+        toast.success('Deleted Successfully', {
+            description: `"${tag.name}" has been deleted.`,
+        })
     }
 
     function toggleTag(tag: Tag) {
@@ -141,6 +150,7 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
     const onComboboxOpenChange = (value: boolean) => {
         inputRef.current?.blur(); // HACK: otherwise, would scroll automatically to the bottom of page
         setOpenCombobox(value);
+        setInputValue(""); //emptying tag search input
     };
 
     // for filtering the tags list when user is typing a tag name
@@ -174,8 +184,8 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
                     </Button>
                 </PopoverTrigger>
 
-                <PopoverContent className="p-0 w-[200px]">
-                    <Command loop>
+                <PopoverContent className="p-0 w-[250px] will-change-auto backface-hidden"> {/*blur issue fixed by adding will-change:auto style in index.css*/}
+                    <Command loop shouldFilter={false}>
                         <CommandInput
                             ref={inputRef}
                             placeholder="Search tags..."
@@ -184,7 +194,7 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
                         />
 
                         <CommandList>
-                            <CommandGroup className="max-h-[145px] overflow-auto">
+                            {filteredTags.length > 0 ? (<CommandGroup heading="Tags" className="max-h-[145px] overflow-auto">
                                 {filteredTags.map(tag => {
                                     const isSelected = selectedTags.some(t => t.id === tag.id)
 
@@ -201,38 +211,58 @@ export function TagSelector({ context, selectedTags, onChangeSelected }: Props) 
                                         >
                                             <Check
                                                 className={cn(
-                                                    "mr-2 h-4 w-4",
+                                                    "h-4 w-4",
                                                     isSelected ? "opacity-100" : "opacity-0"
                                                 )}
                                             />
-                                            <div className="flex-1">{tag.name}</div>
+                                            <span>{tag.name}</span>
 
                                         </CommandItem>
                                     )
                                 })}
 
-                                {canCreate && (
-                                    <CommandItem
-                                        onSelect={() => handleCreateTag(inputValue)}
-                                        className="text-xs text-muted-foreground"
-                                    >
-                                        Create "{inputValue}"
-                                    </CommandItem>
-                                )}
-                            </CommandGroup>
+                                
+                            </CommandGroup>) :
+                            <div className="py-3 text-center text-sm text-muted-foreground">
+                                No results found.
+                            </div> 
+                            }
 
                             <CommandSeparator alwaysRender />
-
-                            <CommandGroup>
+                            
+                            <CommandGroup heading="Actions">
+                                {canCreate && (
+                                    <CommandItem
+                                        forceMount
+                                        onSelect={() => handleCreateTag(inputValue)}
+                                        className={cn(
+                                                "data-[selected=true]:bg-accent",
+                                                "data-[selected=false]:bg-transparent",
+                                                "cursor-pointer hover:bg-accent",
+                                                "text-sm text-muted-foreground mb-1"
+                                            )}
+                                    >
+                                        <Plus className="h-2.5 w-2.5" />
+                                        <span>Create "{inputValue}"</span>
+                                        
+                                    </CommandItem>
+                                )}
                                 <CommandItem
-                                    value={`:${inputValue}:`} // HACK: that way, the edit button will always be shown
+                                    forceMount
+                                    // value={`:${inputValue}:`} // HACK: that way, the edit button will always be shown
                                     onSelect={() => setOpenDialog(true)}
-                                    className="text-xs text-muted-foreground"
+                                    className={cn(
+                                                "data-[selected=true]:bg-accent",
+                                                "data-[selected=false]:bg-transparent",
+                                                "cursor-pointer",
+                                                "text-sm text-muted-foreground mb-1"
+                                            )}
                                 >
-                                    <div className={cn("mr-2 h-4 w-4")} />
-                                    <Edit2 className="mr-2 h-2.5 w-2.5" />
-                                    Edit Tags
+                                    <Pencil className="h-2.5 w-2.5" />
+                                    <span>Edit Tags</span>
+                                    
                                 </CommandItem>
+                                
                             </CommandGroup>
                         </CommandList>
                     </Command>

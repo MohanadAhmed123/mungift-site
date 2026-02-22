@@ -5,6 +5,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+[data-radix-popper-content-wrapper] {
+  will-change: auto !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
