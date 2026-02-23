@@ -26,19 +26,19 @@ export default function NewMediaPage() {
                 try {
                     const filePath = await uploadMediaFile(values.file!, user.id)
 
-                    const { data } = await createMediaItem({
+                    const insertedItem = await createMediaItem({
                         file_url: filePath,
                         file_type: getFileType(values.file!),
                         caption: values.caption,
                         userId: user.id,
                     })
-                    const newMediaItemId = data.id
+                    
                     if (values.tags) {
                         await setTagsForItem({
                             scope: "media",
                             joinTable: "media_tag_map",
                             entityColumn: "media_id"
-                        }, newMediaItemId, values.tags.map(t => t.id))
+                        }, insertedItem.id, values.tags.map(t => t.id))
                     }
 
 
